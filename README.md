@@ -11,7 +11,7 @@
 ```yaml
 services:
   auth-proxy:
-    image: auth-proxy
+    image: ghcr.io/reansn0w/auth-proxy-container
     ports:
       - 8080:8080
     environment:
@@ -44,3 +44,18 @@ oauth:
 Help Options:
   -h, --help                    Show this help message
 ```
+
+### Также важно знать
+
+Сервер будет отправлять запросы к oauth провайдеру с redirect_uri равным URL сервера, без Query параметров и с Path = /oauth/authorize
+
+```
+# Пример:
+
+https://mydomain.com -> https://mydomain.com/oauth/authorize
+https://mydomain.com/pages/some -> https://mydomain.com/oauth/authorize
+https://mydomain.com?some_parameter=some_value -> https://mydomain.com/oauth/authorize
+https://mydomain.com:4444/pages/some -> https://mydomain.com:4444/oauth/authorize
+```
+
+Следует учитывать этот момент при настройке приложения на стороне oauth провайдера
